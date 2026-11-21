@@ -2,7 +2,6 @@
 
 title = Crest
 package.name = crest
-a
 package.domain = org.rogotuyt
 source.dir = .
 source.include_exts = py,kv,png,jpg,jpeg,atlas,pkl
