@@ -40,14 +40,12 @@ class Game_logic():
                         return a
         return 0 
 
-    def create_key(self):
-        b = []
-        for i in self.board:
-            b.append(tuple(i))
-        return tuple(b)
+    def create_key(self,pl):
+        b = (tuple(i) for i in self.board)
+        return (tuple(b),pl)
     
-    def ai_hod(self,eps = 0):
-        a = self.create_key()
+    def ai_hod(self,pl,eps = 0):
+        a = self.create_key(pl=pl)
         all_hd = self.svoboda()
         q = self.q_tab
         if a not in q:
@@ -80,8 +78,8 @@ class Game_logic():
         pl = random.choice((1,-1))
         history = []
         while self.is_game():
-            bor = self.create_key()
-            hd = self.ai_hod(eps=ep)
+            bor = self.create_key(pl=pl)
+            hd = self.ai_hod(pl=pl,eps=ep)
             history.append((pl,hd,bor))
             self.move(hd[0],hd[1],pl)
             pl = -pl
@@ -94,11 +92,12 @@ class Game_logic():
         pl = random.choice([1,-1])
         while self.is_game():
             if pl == -1:
-                hd = self.ai_hod(eps=0)
+                hd = self.ai_hod(eps=0,pl=pl)
                 self.move(hd[0],hd[1],-1)
             else:
                 hd = random.choice(self.svoboda())
                 self.move(hd[0],hd[1],1)
+            pl = -pl
         return self.detect_win()
 
     

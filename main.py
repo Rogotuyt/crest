@@ -16,7 +16,7 @@ class Main_app(App):
         self.bot_cunter , self.you_counter= Label(size_hint = (0.3,0.2),text = f'Бот\n {self.bot_count}',pos_hint={"center_x": 0.8, "y": 0.8},font_size=40),Label(size_hint = (0.3,0.2),text = f'Ты\n {self.you_count}',pos_hint={"center_x": 0.2, "y": 0.8},font_size=40)
         self.root = FloatLayout()
         self.gameplay = True
-        self.game = Game_logic()
+        self.game = Game_logic('WS.pkl')
         self.button_pole = {}
         self.creat_pole()
         self.root.add_widget(Button(size_hint = (0.3,0.1),text = 'Reset',on_press = self.reset,pos_hint={"center_x": 0.5, "y": 0},font_size=40))
@@ -95,7 +95,7 @@ class Main_app(App):
         if not self.gameplay:
             print('end game')
             return
-        a = self.game.ai_hod()
+        a = self.game.ai_hod(pl=1)
         self.game.move(row=a[0],col=a[1],pl=1)
         self.button_pole[(a[0],a[1])].text = 'X'
         self.button_pole[(a[0],a[1])].color = "red"

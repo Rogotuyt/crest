@@ -1,6 +1,6 @@
 from game_logic_2_0 import Game_logic
 
-game = Game_logic('q.pkl')
+game = Game_logic('WS.pkl')
 
 
 
@@ -11,7 +11,7 @@ for i in range(10):
     print(f'Training AI {i+1}/10')
     for _ in range(100000):
         game.training_ai()
-    for _ in range(10):
+    for _ in range(100):
         a = game.test_ai()
         if a == 0:
             nech +=1
@@ -23,5 +23,5 @@ for i in range(10):
 
 print(len(game.q_tab))
 game.save_q()
+print('Training completed')
 
-print(f'побед: {win}, поражений: {los}, нечей: {nech}')
