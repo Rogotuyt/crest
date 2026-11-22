@@ -76,9 +76,8 @@ class Game_logic():
         return False
 
     def training_ai(self,ep = 0.2,lr = 0.1):
-
         self.reset()
-        pl = -1
+        pl = random.choice((1,-1))
         history = []
         while self.is_game():
             bor = self.create_key()
@@ -90,6 +89,20 @@ class Game_logic():
         for pl,hd,bor in history:
             self.q_tab[bor][hd] += lr*pl*winer
 
+    def test_ai(self,ep = 0.2):
+        self.reset()
+        pl = random.choice([1,-1])
+        while self.is_game():
+            if pl == -1:
+                hd = self.ai_hod(eps=0)
+                self.move(hd[0],hd[1],-1)
+            else:
+                hd = random.choice(self.svoboda())
+                self.move(hd[0],hd[1],1)
+        return self.detect_win()
+
+    
     def save_q(self):
         with open(self.q_file, "wb") as f:
             pickle.dump(self.q_tab, f)
+            print(f'save:{self.q_file}')
